@@ -1,9 +1,18 @@
-function Header() {
-  return (
-    <header>
-      <h1>Next.js Example on Now 2.0</h1>
-    </header>
-  );
+import Link from 'next/link'
+
+const linkStyle = {
+  marginRight: 15
 }
 
-export default Header;
+const Header = () => (
+  <div>
+    <Link href="/">
+      <a style={linkStyle}>Home</a>
+    </Link>
+    <Link href="/about">
+      <a style={linkStyle}>About</a>
+    </Link>
+  </div>
+)
+
+export default Header
