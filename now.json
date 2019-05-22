@@ -4,6 +4,6 @@
         {"src":"package.json","use":"@now/next"}
     ],
     "routes":[
-        {"src":"/p/(?<id>[^/]+)$","dest":"/post?id=$id}"}
+        {"src":"/p/(?<id>[^/]+)$","dest":"/post?id=$id"}
     ]
 }
