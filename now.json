@@ -1,1 +1,1 @@
-{"version":2,"name":"nextjs","builds":[{"src":"pages/index.js","use":"@now/node-server"}]}
+{"version":2,"name":"nextjs","builds":[{"src":"server.js","use":"@now/node-server"}]}
