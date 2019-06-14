@@ -4,7 +4,7 @@ import Banner from '../components/banner.js'
 import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
-const DynamicComponent = dynamic(() => import('../components/dyn1.js'))
+import fetch from 'isomorphic-unfetch'
 
 const url = 'https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/f7182c56-7553-43b0-af98-dd5b04a1b912%22%7d&scope=tree&store=twe&fullBodyObject=true'
 
@@ -40,6 +40,9 @@ export default class Dyn extends React.Component {
   render() {
     const { data } = this.props
     const componentList = data['@graph']
+    const imageList = componentList.filter((item) => item.mediaType === 'image')
+
+    console.log('imageList', imageList)
 
     return (
       <Layout>
