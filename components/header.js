@@ -6,14 +6,14 @@ const linkStyle = {
 
 const Header = () => (
   <div>
-    <Link href="/">
+    <Link prefetch href="/">
       <a style={linkStyle}>Home</a>
     </Link>
-    <Link href="/about">
+    <Link prefetch href="/dynamic?id=f012151c-9ed8-495b-9db0-6d3b35696a95">
       <a style={linkStyle}>About</a>
     </Link>
-    <Link href="/dynamic">
-      <a style={linkStyle}>Dynamic</a>
+    <Link prefetch href="/dynamic?id=f7182c56-7553-43b0-af98-dd5b04a1b912">
+      <a style={linkStyle}>Home</a>
     </Link>
   </div>
 )

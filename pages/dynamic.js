@@ -6,16 +6,15 @@ import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 
-const url = 'https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/f7182c56-7553-43b0-af98-dd5b04a1b912%22%7d&scope=tree&store=twe&fullBodyObject=true'
-
 export default class Dyn extends React.Component {
-  static async getInitialProps() {
+  static async getInitialProps({ query }) {
+    const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${query.id}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+
+    console.log('QUERYYYYY', query)
     const res = await fetch(url)
     const data = await res.json()
   
-    return {
-      data
-    }
+    return { data }
   }
 
   mapTypeToComponent = (typeName, componentProps, image) => {
@@ -48,7 +47,9 @@ export default class Dyn extends React.Component {
               image = imageList.find((imageItem) => imageItem['@id'] === componentProps.background['@id'])
             }
 
-            return this.mapTypeToComponent(item['@type'], componentProps, image)
+            return <div key={`key-${index}`}>
+              {this.mapTypeToComponent(item['@type'], componentProps, image)}
+            </div>
         })}
       </Layout>
     )

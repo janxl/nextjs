@@ -15,7 +15,7 @@ export default (props) => {
 
   return (
     <Wrapper>
-      { paragraph.map((item) => <Text>{item}</Text>) }
+      { paragraph.map((item, index) => <Text key={`key-${index}`}>{item}</Text>) }
     </Wrapper>
   )
 }
