@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: #333333
+  background-image: url(${props => props.imageUrl});
+  background-size: cover;
   padding: 20px 0px;
 `
 
@@ -12,6 +13,7 @@ const Title = styled.h1`
   color: #ffffff;
   text-align: center;
   font-family: "Helvetica Neue";
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
 `;
 
 const SubTitle = styled.h1`
@@ -19,13 +21,15 @@ const SubTitle = styled.h1`
   color: #ffffff;
   text-align: center;
   font-family: "Helvetica Neue";
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
 `;
 
 export default (props) => {
-  const { headline, strapline } = props
-  console.log('BANNER PROPS', props)
+  const { headline, strapline, image } = props
+  const imageUrl = `https://${image.defaultHost}/i/${image.endpoint}/${image.name}`
+
   return (
-    <Wrapper>
+    <Wrapper imageUrl={imageUrl}>
       <Title>{headline}</Title>
       <SubTitle>{strapline}</SubTitle>
     </Wrapper>

@@ -12,7 +12,6 @@ const Text = styled.p`
 
 export default (props) => {
   const { paragraph } = props
-  console.log('SIMPLE TEXT PROPS', props)
 
   return (
     <Wrapper>

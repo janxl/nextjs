@@ -13,17 +13,15 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
   
-    console.log(`Data fetched`, data)
-  
     return {
       data
     }
   }
 
-  mapTypeToComponent = (typeName, componentProps) => {
+  mapTypeToComponent = (typeName, componentProps, image) => {
     switch(typeName) {
       case 'http://twe-poc.way.com/banner.json':
-        return <Banner {...componentProps} />
+        return <Banner {...componentProps} image={image} />
       case 'http://twe-poc.way.com/simpletextblock.json':
         return  <SimpleText {...componentProps} />
       case 'http://twe-poc.way.com/richtextfield.json':
@@ -32,8 +30,6 @@ export default class Dyn extends React.Component {
   }
 
   getComponentProps = (componentId, componentList) => {
-    console.log('componentListTTTTT', componentList)
-
     return componentList.find((item) => item['@id'] === componentId)
   }
 
@@ -42,13 +38,17 @@ export default class Dyn extends React.Component {
     const componentList = data['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
 
-    console.log('imageList', imageList)
-
     return (
       <Layout>
         { componentList[0].slotContent.map((item, index) => {
+            let image = null
             const componentProps = this.getComponentProps(item['@id'], componentList)
-            return this.mapTypeToComponent(item['@type'], componentProps)
+
+            if (componentProps.background) {
+              image = imageList.find((imageItem) => imageItem['@id'] === componentProps.background['@id'])
+            }
+
+            return this.mapTypeToComponent(item['@type'], componentProps, image)
         })}
       </Layout>
     )

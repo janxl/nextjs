@@ -16,11 +16,10 @@ const TextField = styled.textarea`
 
 export default (props) => {
   const { body } = props
-  console.log('Text field propssss PROPS', props)
 
   return (
     <Wrapper>
-      <TextField>{body}</TextField>
+      <TextField defaultValue={body} />
     </Wrapper>
   )
 }
