@@ -1,9 +1,14 @@
 import Layout from '../components/mylayout.js'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
+import Head from 'next/head';
 
 const Index = (props) => (
   <Layout>
+    <Head>
+      <title>My page title</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <h1>Batman TV Shows</h1>
     <ul>
       {props.shows.map(show => (
