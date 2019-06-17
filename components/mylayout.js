@@ -1,4 +1,5 @@
 import Header from './header'
+// import DynaHeader from '../components/dynamicheader.js'
 
 const layoutStyle = {
   margin: 20,
@@ -9,6 +10,7 @@ const layoutStyle = {
 const Layout = props => (
   <div style={layoutStyle}>
     <Header />
+    {/* <DynaHeader json="My dynamic header" /> */}
     {props.children}
   </div>
 )
