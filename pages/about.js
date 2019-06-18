@@ -12,7 +12,7 @@ export default function About() {
   return (
     <Layout>
       <Title>Squelling Pig</Title>
-      <p>This is the about page</p>
+      <p>This is the about page PROD</p>
     </Layout>
   )
 }
