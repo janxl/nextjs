@@ -8,7 +8,7 @@ const Title = styled.h1`
 `;
 
 export default function About() {
-  console.log(GetCss(''))
+  //console.log(GetCss(''))
   return (
     <Layout>
       <Title>Squelling Pig</Title>
