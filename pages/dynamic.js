@@ -62,6 +62,9 @@ export default class Dyn extends React.Component {
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
+    const styles = menuComponentList[0].styleSheet
+
+    console.log('Styles ' + styles)
 
     const linkStyle = {
       marginRight: 15
@@ -80,7 +83,7 @@ export default class Dyn extends React.Component {
               // console.log('Link to... ' + pageId)
               var navUrl = '/dynamic?id=' + pageId
 
-              return <Link prefetch href={navUrl}>
+              return <Link prefetch href={navUrl} key={`key-${index}`}>
                 <a href={navUrl} style={linkStyle}>{componentProps.navLabel}</a>
               </Link>
             }

@@ -1,5 +1,6 @@
 import Layout from '../components/mylayout.js'
 import styled from 'styled-components'
+import GetCss from '../components/styleregistry.js'
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -7,6 +8,7 @@ const Title = styled.h1`
 `;
 
 export default function About() {
+  console.log(GetCss(''))
   return (
     <Layout>
       <Title>Squelling Pig</Title>
