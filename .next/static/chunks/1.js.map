@@ -1,1 +1,0 @@
-{"version":3,"file":"static/chunks/1.js","sources":["webpack:///./components/dyn1.js"],"sourcesContent":["\n\nconst Dyn1 = () => (\n  <div>\n    TEST DYN1\n  </div>\n)\n\nexport default Dyn1"],"mappings":";;;;;;;;;;;;;;;;AAEA;AAAA;AACA;AAAA;AAAA;AAAA;AAAA;AAAA;AADA;AACA;AAKA;;;;A","sourceRoot":""}
