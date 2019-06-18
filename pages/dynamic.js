@@ -42,6 +42,19 @@ export default class Dyn extends React.Component {
     return componentList.find((item) => item['@id'] === componentId)
   }
 
+  getGuidFromId(componentId){
+    // console.log('Splitting... ' + componentId + ' ' + componentId.length)
+    if (componentId.length >= 0){
+      var parts = componentId.split('/')
+      // console.log('Parts... ' + parts.length)
+      
+      if (parts.length >= 0){
+        return parts[parts.length - 1]
+      }
+    }
+    return ""
+  }
+
   render() {
     const { data } = this.props
     const { dataMenu } = this.props
@@ -60,10 +73,15 @@ export default class Dyn extends React.Component {
           {
             menuComponentList[0].slugs.map((item, index) => {
               const componentProps = this.getMenuComponentProps(item['@id'], menuComponentList)
-              console.log(componentProps)
+              
+              // Debugging
+              console.log('component props ' + componentProps)
+              var pageId = this.getGuidFromId(componentProps.page['@id'])
+              // console.log('Link to... ' + pageId)
+              var navUrl = '/dynamic?id=' + pageId
 
-              return <Link prefetch href="/dynamic?id=f012151c-9ed8-495b-9db0-6d3b35696a95">
-                <a href={componentProps.page['@id']} style={linkStyle}>{componentProps._meta.name}</a>
+              return <Link prefetch href={navUrl}>
+                <a href={navUrl} style={linkStyle}>{componentProps.navLabel}</a>
               </Link>
             }
           )}
