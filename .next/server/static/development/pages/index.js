@@ -121,6 +121,7 @@ var Header = function Header() {
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    prefetch: true,
     href: "/",
     __source: {
       fileName: _jsxFileName,
@@ -135,7 +136,8 @@ var Header = function Header() {
     },
     __self: this
   }, "Home")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/about",
+    prefetch: true,
+    href: "/dynamic?id=f012151c-9ed8-495b-9db0-6d3b35696a95",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 12
@@ -149,7 +151,8 @@ var Header = function Header() {
     },
     __self: this
   }, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/dynamic",
+    prefetch: true,
+    href: "/dynamic?id=f7182c56-7553-43b0-af98-dd5b04a1b912",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 15
@@ -162,7 +165,7 @@ var Header = function Header() {
       lineNumber: 16
     },
     __self: this
-  }, "Dynamic")));
+  }, "Home")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
@@ -181,7 +184,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./components/header.js");
+var _jsxFileName = "/Users/marcbastiaansen/Projects/nextjs/nextjs/components/mylayout.js";
 
+ // import DynaHeader from '../components/dynamicheader.js'
 
 var layoutStyle = {
   margin: 20,
@@ -191,8 +196,13 @@ var layoutStyle = {
 
 var Layout = function Layout(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    style: layoutStyle
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_1__["default"], null), props.children);
+    style: layoutStyle,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: this
+  }, props.children);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
@@ -846,9 +856,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/head */ "next/head");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_6__);
 
 
 var _jsxFileName = "/Users/marcbastiaansen/Projects/nextjs/nextjs/pages/index.js";
+
 
 
 
@@ -858,19 +871,39 @@ var Index = function Index(props) {
   return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_mylayout_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6
+      lineNumber: 7
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_6___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 8
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("title", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: this
+  }, "My page title"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("meta", {
+    name: "viewport",
+    content: "initial-scale=1.0, width=device-width",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    },
+    __self: this
+  })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
     },
     __self: this
   }, "Batman TV Shows"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 13
     },
     __self: this
   }, props.shows.map(function (show) {
@@ -878,7 +911,7 @@ var Index = function Index(props) {
       key: show.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 10
+        lineNumber: 15
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -886,13 +919,13 @@ var Index = function Index(props) {
       href: "/post?id=".concat(show.id),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 11
+        lineNumber: 16
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 17
       },
       __self: this
     }, show.name)));
@@ -1056,6 +1089,17 @@ module.exports = require("isomorphic-unfetch");
 /***/ (function(module, exports) {
 
 module.exports = require("next-server/dist/lib/utils");
+
+/***/ }),
+
+/***/ "next/head":
+/*!****************************!*\
+  !*** external "next/head" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("next/head");
 
 /***/ }),
 
