@@ -2,17 +2,15 @@ import Layout from '../components/mylayout.js'
 import styled from 'styled-components'
 import GetCss from '../components/styleregistry.js'
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  color: #a7a9ac;
-`;
-
-export default function About() {
-  console.log(GetCss(''))
+export default function About({id}) {
+  console.log(id)
+  var styles = GetCss('6aee88e2-0358-429a-b721-82dd6854c4a1')
+  
   return (
     <Layout>
-      <Title>Squelling Pig</Title>
-      <p>This is the about page PROD</p>
+      {styles}
+      <h1>Squelling Pig</h1>
+      <p>This is the about page</p>
     </Layout>
   )
 }
