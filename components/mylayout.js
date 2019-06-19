@@ -8,7 +8,7 @@ const layoutStyle = {
 }
 
 const Layout = props => (
-  <div style={layoutStyle}>
+  <div>
     {/* <Header /> */}
     {/* <DynaHeader json="My dynamic header" /> */}
     {props.children}

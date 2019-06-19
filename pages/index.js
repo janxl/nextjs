@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 import DynaHeader from '../components/dynamicheader.js'
 import Link from "next/link";
-import GetCss from '../components/styleregistry.js'
+import Head from 'next/head'
 
 export default class Dyn extends React.Component {
   static async getInitialProps({ query }) {
@@ -16,9 +16,6 @@ export default class Dyn extends React.Component {
 
     // Get Site Id / Name
     var siteName = 'mysite'
-
-    // Get Css Styles from Custom provider
-    const styles = GetCss('6aee88e2-0358-429a-b721-82dd6854c4a1')
 
     // Create a route for the initial render of the page
     if (query.id == null || query.id == '' || query.id == '/')
@@ -46,7 +43,7 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, styles, siteName }
+    return { data, dataMenu, siteName }
   }
 
   mapTypeToComponent = (typeName, componentProps, image) => {
@@ -102,10 +99,7 @@ export default class Dyn extends React.Component {
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    const { styles } = this.props
     const { siteName } = this.props
-
-    console.log('Styles ' + styles)
 
     const linkStyle = {
       marginRight: 15
@@ -113,36 +107,44 @@ export default class Dyn extends React.Component {
     
     return (
       <div>
-        <DynaHeader>
-          {
-            menuComponentList[0].slugs.map((item, index) => {
-              const componentProps = this.getComponentProps(item['@id'], menuComponentList)
-              
-              var pageId = this.getGuidFromId(componentProps.page['@id'])
-              var navUrl = `/index?site=${siteName}&id=${pageId}` // '/index?site=1&id=' + pageId
-              var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
+        <Head>
+          <title>Treasure Wine Estates - POC</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        </Head>
+        <div className='container'>
+          <nav className='nav'>
+            <DynaHeader>
+              {
+                menuComponentList[0].slugs.map((item, index) => {
+                  const componentProps = this.getComponentProps(item['@id'], menuComponentList)
+                  
+                  var pageId = this.getGuidFromId(componentProps.page['@id'])
+                  var navUrl = `/index?site=${siteName}&id=${pageId}`
+                  var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
 
-              return <Link prefetch href={customRoute} key={`key-${index}`}>
-                <a href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
-              </Link>
-            }
-          )}
-        </DynaHeader>
-        <Layout>
-          { componentList[0].slotContent.map((item, index) => {
-              let image = null
-              const componentProps = this.getComponentProps(item['@id'], componentList)
+                  return <Link className='nav-item' prefetch href={customRoute} key={`key-${index}`}>
+                    <a class='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
+                  </Link>
+                }
+              )}
+            </DynaHeader>
+          </nav>
+          <Layout>
+            { componentList[0].slotContent.map((item, index) => {
+                let image = null
+                const componentProps = this.getComponentProps(item['@id'], componentList)
 
-              if (componentProps.background) {
-                image = imageList.find((imageItem) => imageItem['@id'] === componentProps.background['@id'])
-              }
+                if (componentProps.background) {
+                  image = imageList.find((imageItem) => imageItem['@id'] === componentProps.background['@id'])
+                }
 
-              return <div key={`key-${index}`}>
-                {this.mapTypeToComponent(item['@type'], componentProps, image)}
-              </div>
-          })}
-          {/* {styles} */}
-        </Layout>
+                return <div key={`key-${index}`}>
+                  {this.mapTypeToComponent(item['@type'], componentProps, image)}
+                </div>
+            })}
+          </Layout>
+        </div>
+        
       </div>
     )
   }
