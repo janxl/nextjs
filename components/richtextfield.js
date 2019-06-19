@@ -19,7 +19,7 @@ export default (props) => {
 
   return (
     <Wrapper>
-      <TextField defaultValue={body} />
+      <TextField defaultValue={body.values[0].value} />
     </Wrapper>
   )
 }

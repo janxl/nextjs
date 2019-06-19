@@ -19,12 +19,12 @@ export default class Dyn extends React.Component {
     switch (query.site) {
       case 'squealingpig':
         siteName = 'squealingpig'
-        urlId = '6aee88e2-0358-429a-b721-82dd6854c4a1'
+        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     
       default:
         siteName = 'ativo'
-        urlId = '5d8de438-2f2e-4e98-88c4-543d97b2982a'
+        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
 
@@ -35,16 +35,14 @@ export default class Dyn extends React.Component {
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
-    // Fetch tree structure / content
-    const resMenu = await fetch(treeRootUrl)
-    const dataMenu = await resMenu.json()
-    
     // Get route from Data
     var siteId = '';
+    var dataMenu = ''
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
         siteId = this.getCustomRoute(json, query.id)
+        dataMenu = json
         console.log('SiteId... ' + siteId)
       })
     
@@ -58,34 +56,30 @@ export default class Dyn extends React.Component {
 
   mapTypeToComponent = (typeName, componentProps, image) => {
     switch(typeName) {
-      case 'http://twe-poc.way.com/banner.json':
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
       case 'http://twe-poc.way.com/simpletextblock.json':
         return  <SimpleText {...componentProps} />
-      case 'http://twe-poc.way.com/richtextfield.json':
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
     }
   }
 
   // This method gets custom routes by looking up the nav path and finding the id
   static getCustomRoute = (data, path) => {
-    console.log('Path... ' + path)
     var componentList = data['@graph']
-    console.log('componentList... ' + componentList)
     const componentProps = componentList.find((item) => item['slug'] === path)
-    console.log('componentProps...' + componentProps)
     
     if (componentProps != null){
       var componentId = componentProps.page['@id']
       if (componentId.length >= 0){
         var parts = componentId.split('/')
-        
         if (parts.length >= 0){
           return parts[parts.length - 1]
         }
       }
     }
-    return 'f7182c56-7553-43b0-af98-dd5b04a1b912'
+    return ''
   }
 
   getComponentProps = (componentId, componentList) => {
@@ -100,7 +94,7 @@ export default class Dyn extends React.Component {
         return parts[parts.length - 1]
       }
     }
-    return ""
+    return ''
   }
 
   render() {
@@ -133,7 +127,7 @@ export default class Dyn extends React.Component {
                   var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
 
                   return <Link prefetch href={customRoute} key={`key-${index}`}>
-                    <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
+                    <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel.values[0].value}</a>
                   </Link>
                 }
               )}
