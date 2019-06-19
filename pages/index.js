@@ -14,12 +14,15 @@ export default class Dyn extends React.Component {
     
     console.log('Page requested with... id=' + query.id)
 
+    // Get Site Id / Name
+    var siteName = 'mysite'
+
     // Get Css Styles from Custom provider
     const styles = GetCss('6aee88e2-0358-429a-b721-82dd6854c4a1')
 
     // Create a route for the initial render of the page
     if (query.id == null || query.id == '' || query.id == '/')
-      query = {id: 'f7182c56-7553-43b0-af98-dd5b04a1b912'}
+      query = {id: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/6aee88e2-0358-429a-b721-82dd6854c4a1%22%7d&scope=tree&store=twe&fullBodyObject=true`
@@ -38,14 +41,12 @@ export default class Dyn extends React.Component {
         console.log('SiteId... ' + siteId)
       })
     
-    
-    
     const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, styles }
+    return { data, dataMenu, styles, siteName }
   }
 
   mapTypeToComponent = (typeName, componentProps, image) => {
@@ -59,6 +60,7 @@ export default class Dyn extends React.Component {
     }
   }
 
+  // This method gets custom routes by looking up the nav path and finding the id
   static getCustomRoute = (data, path) => {
     console.log('Path... ' + path)
     var componentList = data['@graph']
@@ -101,6 +103,7 @@ export default class Dyn extends React.Component {
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
     const { styles } = this.props
+    const { siteName } = this.props
 
     console.log('Styles ' + styles)
 
@@ -116,8 +119,8 @@ export default class Dyn extends React.Component {
               const componentProps = this.getComponentProps(item['@id'], menuComponentList)
               
               var pageId = this.getGuidFromId(componentProps.page['@id'])
-              var navUrl = '/index?id=' + pageId
-              var customRoute = '/index?id=' + componentProps.slug
+              var navUrl = `/index?site=${siteName}&id=${pageId}` // '/index?site=1&id=' + pageId
+              var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
 
               return <Link prefetch href={customRoute} key={`key-${index}`}>
                 <a href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
