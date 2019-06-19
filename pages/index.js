@@ -1,4 +1,3 @@
-import React from 'react'
 import Layout from '../components/mylayout.js'
 import Banner from '../components/banner.js'
 import SimpleText from '../components/simpletext.js'
@@ -16,13 +15,25 @@ export default class Dyn extends React.Component {
 
     // Get Site Id / Name
     var siteName = 'mysite'
+    var urlId = ''
+    switch (query.site) {
+      case 'squealingpig':
+        siteName = 'squealingpig'
+        urlId = '6aee88e2-0358-429a-b721-82dd6854c4a1'
+        break;
+    
+      default:
+        siteName = 'ativo'
+        urlId = '5d8de438-2f2e-4e98-88c4-543d97b2982a'
+        break;
+    }
 
     // Create a route for the initial render of the page
     if (query.id == null || query.id == '' || query.id == '/')
       query = {id: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
-    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/6aee88e2-0358-429a-b721-82dd6854c4a1%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     // Fetch tree structure / content
     const resMenu = await fetch(treeRootUrl)
@@ -33,7 +44,6 @@ export default class Dyn extends React.Component {
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
-        console.log('not await finished')
         siteId = this.getCustomRoute(json, query.id)
         console.log('SiteId... ' + siteId)
       })
@@ -122,8 +132,8 @@ export default class Dyn extends React.Component {
                   var navUrl = `/index?site=${siteName}&id=${pageId}`
                   var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
 
-                  return <Link className='nav-item' prefetch href={customRoute} key={`key-${index}`}>
-                    <a class='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
+                  return <Link prefetch href={customRoute} key={`key-${index}`}>
+                    <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel}</a>
                   </Link>
                 }
               )}
