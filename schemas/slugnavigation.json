@@ -29,7 +29,7 @@
 					"properties": {
 						"contentType": {
 							"enum": [
-								"[GIT LOCATION]/ArticleSlot.json"
+								"https://raw.githubusercontent.com/janxl/nextjs/master/schemas/page.json"
 							]
 						}
 					}
