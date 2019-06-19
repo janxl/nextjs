@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "[GIT LOCATION]/simpletextblock.json",
+	"id": "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json",
 
 	"title": "Title",
 	"description": "Description",

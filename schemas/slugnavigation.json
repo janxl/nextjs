@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "[GIT LOCATION]/slugnavigation.json",
+	"id": "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/slugnavigation.json",
 
 	"title": "Slug Navigation",
 	"description": "Description",
