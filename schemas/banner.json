@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "[GIT LOCATION]/banner.json",
+	"id": "https://github.com/janxl/nextjs/blob/master/schemas/banner.json",
 
  "title": "Title",
     "description": "Description",
