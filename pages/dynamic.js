@@ -56,12 +56,10 @@ export default class Dyn extends React.Component {
   }
 
   render() {
-    const { data } = this.props
-    const { dataMenu } = this.props
+    const { data, dataMenu, styles } = this.props
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    const { styles } = this.props
 
     console.log('Styles ' + styles)
 
@@ -77,8 +75,8 @@ export default class Dyn extends React.Component {
             menuComponentList[0].slugs.map((item, index) => {
               const componentProps = this.getMenuComponentProps(item['@id'], menuComponentList)
               
-              var pageId = this.getGuidFromId(componentProps.page['@id'])
-              var navUrl = '/dynamic?id=' + pageId
+              let pageId = this.getGuidFromId(componentProps.page['@id'])
+              let navUrl = '/dynamic?id=' + pageId
 
               return <Link prefetch href={navUrl} key={`key-${index}`}>
                 <a href={navUrl} style={linkStyle}>{componentProps.navLabel}</a>
