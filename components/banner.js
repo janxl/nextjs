@@ -31,7 +31,7 @@ export default (props) => {
   return (
     <Wrapper imageUrl={imageUrl}>
       <Title>{headline.values[0].value}</Title>
-      <SubTitle>{strapline}</SubTitle>
+      <SubTitle>{strapline != null ? strapline.values[0].value : ''}</SubTitle>
     </Wrapper>
   )
 }
