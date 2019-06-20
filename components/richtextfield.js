@@ -1,12 +1,13 @@
 import Layout from '../components/mylayout.js'
 import styled from 'styled-components'
+import ReactMarkdown from 'react-markdown'
 
 const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
 `
 
-const TextField = styled.textarea`
+const TextField = styled.p`
   font-size: 1em;
   color: #333333;
   font-family: "Helvetica Neue";
@@ -16,10 +17,11 @@ const TextField = styled.textarea`
 
 export default (props) => {
   const { body } = props
+  console.log('rich text props', props)
 
   return (
     <Wrapper>
-      <TextField defaultValue={body.values[0].value} />
+      <ReactMarkdown source={body} />
     </Wrapper>
   )
 }
