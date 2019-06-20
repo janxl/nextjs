@@ -1,0 +1,41 @@
+{
+    "extends": ["standard", "standard-jsx", "standard-react"],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "arrowFunctions": true,
+        "classes": true,
+        "destructuring": true,
+        "forOf": true,
+        "generators": true,
+        "modules": true,
+        "spread": true,
+        "templateStrings": true,
+        "restParams": true,
+        "jsx": true,
+        "legacyDecorators": true
+      }
+    },
+    "rules": {
+      "react/prop-types": [
+        "off"
+      ],
+      "no-floating-decimal": [
+        "off"
+      ],
+      "react/jsx-indent-props": [
+        "error",
+        2
+      ],
+      "jsx-quotes": [
+        "error",
+        "prefer-double"
+      ],
+      "eol-last": [
+        "error",
+        "always"
+      ]
+    }
+  }
