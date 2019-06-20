@@ -17,7 +17,7 @@ export default class Dyn extends React.Component {
       console.log('hostname... ', req.hostname)
       console.log('hostName... ', req.hostName)
     }
-    console.log('Req... ', req)
+    
     console.log('Page requested with... id=' + query.id)
     console.log('Page requested with... site=' + query.site)
     console.log('Page requested with... page=' + query.page)
