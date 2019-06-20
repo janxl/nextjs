@@ -9,6 +9,7 @@ import Link from "next/link";
 import Head from 'next/head'
 
 export default class Dyn extends React.Component {
+  
   static async getInitialProps({ query, req }) {
 
     if (req != null)
