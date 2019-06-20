@@ -6,6 +6,7 @@
     ],
     "routes":[
         {"src":"/p/(?<id>[^/]+)$","dest":"/index?id=$id"},
-        {"src":"/m/(?<id>[^/]+)$","dest":"/index?site=$id"}
+        {"src":"/m/(?<id>[^/]+)$","dest":"/index?site=$id"},
+        {"src":"/(?<id>[^/]+)$","dest":"/index?page=$id"}
     ]
 }
