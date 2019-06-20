@@ -16,7 +16,7 @@ export default class Dyn extends React.Component {
     console.log('Page requested with... page=' + query.page)
 
     // Get Site Id / Name
-    var siteName = 'mysite'
+    var siteName = 'squealingpig'
     var urlId = ''
     switch (query.site) {
       case 'squealingpig':
@@ -26,7 +26,7 @@ export default class Dyn extends React.Component {
     
       default:
         siteName = 'ativo'
-        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
+        urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
         break;
     }
 
@@ -48,6 +48,9 @@ export default class Dyn extends React.Component {
         console.log('SiteId... ' + siteId)
       })
     
+    if (siteId == null || siteId == '')
+      siteId = urlId
+
     const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     const res = await fetch(url)
@@ -99,6 +102,31 @@ export default class Dyn extends React.Component {
     return ''
   }
 
+  getMenu(menuComponentList, siteName){
+    const linkStyle = {
+      marginRight: 15
+    };
+
+    if (menuComponentList[0].slugs != null ){
+
+      return <DynaHeader>
+      {
+        menuComponentList[0].slugs.map((item, index) => {
+          const componentProps = this.getComponentProps(item['@id'], menuComponentList)
+          
+          var pageId = this.getGuidFromId(componentProps.page['@id'])
+          var navUrl = `/index?site=${siteName}&id=${pageId}`
+          var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
+  
+          return <Link prefetch href={customRoute} key={`key-${index}`}>
+            <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel.values[0].value}</a>
+          </Link>
+        }
+      )}</DynaHeader>
+
+    }
+  }
+
   render() {
     const { data } = this.props
     const { dataMenu } = this.props
@@ -107,9 +135,7 @@ export default class Dyn extends React.Component {
     const imageList = componentList.filter((item) => item.mediaType === 'image')
     const { siteName } = this.props
 
-    const linkStyle = {
-      marginRight: 15
-    };
+    
     
     return (
       <div>
@@ -121,18 +147,8 @@ export default class Dyn extends React.Component {
           <nav className='nav'>
             <DynaHeader>
               {
-                menuComponentList[0].slugs.map((item, index) => {
-                  const componentProps = this.getComponentProps(item['@id'], menuComponentList)
-                  
-                  var pageId = this.getGuidFromId(componentProps.page['@id'])
-                  var navUrl = `/index?site=${siteName}&id=${pageId}`
-                  var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
-
-                  return <Link prefetch href={customRoute} key={`key-${index}`}>
-                    <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel.values[0].value}</a>
-                  </Link>
-                }
-              )}
+                this.getMenu(menuComponentList, siteName)
+              }
             </DynaHeader>
           </nav>
           <Layout>
