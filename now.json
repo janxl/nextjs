@@ -10,6 +10,6 @@
         {"src":"/p/(?<id>[^/]+)$","dest":"/index?page=$id"},
         {"src":"/m/(.*)$","dest":"/index?page=$1"},
         {"src":"/_next/(.*)$","dest":"/_next/$1"},
-        {"src":"/noway/(.*)$","dest":"/index?page=$1"}
+        {"src":"/(.*)$","dest":"/index?page=$1"}
     ]
 }
