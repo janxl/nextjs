@@ -11,11 +11,6 @@ import Head from 'next/head'
 export default class Dyn extends React.Component {
   static async getInitialProps({ query, req }) {
 
-    console.log('Req... ', req)
-    console.log('Page requested with... id=' + query.id)
-    console.log('Page requested with... site=' + query.site)
-    console.log('Page requested with... page=' + query.page)
-
     // Set the site language with a default of English
     var siteLanguage = query.lang != null ? query.lang : 'en-AU';
 
