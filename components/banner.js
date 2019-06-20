@@ -30,7 +30,7 @@ export default (props) => {
 
   return (
     <Wrapper imageUrl={imageUrl}>
-      <Title>{headline.values[0].value}</Title>
+      <Title>{headline.values.find((item) => item['locale'] === props.siteLanguage).value}</Title>
       <SubTitle>{strapline != null ? strapline.values[0].value : ''}</SubTitle>
     </Wrapper>
   )

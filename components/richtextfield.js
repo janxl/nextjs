@@ -21,7 +21,7 @@ export default (props) => {
 
   return (
     <Wrapper>
-      <ReactMarkdown source={body} />
+      <ReactMarkdown source={body.values.find((item) => item['locale'] === props.siteLanguage).value} />
     </Wrapper>
   )
 }

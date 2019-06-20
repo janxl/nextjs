@@ -10,10 +10,13 @@ import Head from 'next/head'
 
 export default class Dyn extends React.Component {
   static async getInitialProps({ query }) {
-    
+
     console.log('Page requested with... id=' + query.id)
     console.log('Page requested with... site=' + query.site)
     console.log('Page requested with... page=' + query.page)
+
+    // Set the site language with a default of English
+    var siteLanguage = query.lang != null ? query.lang : 'en-AU';
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
@@ -56,10 +59,11 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, siteName }
+    return { data, dataMenu, siteName, siteLanguage }
   }
 
-  mapTypeToComponent = (typeName, componentProps, image) => {
+  mapTypeToComponent = (typeName, componentProps, image, siteLanguage) => {
+    componentProps.siteLanguage = siteLanguage
     switch(typeName) {
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
@@ -134,13 +138,12 @@ export default class Dyn extends React.Component {
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
     const { siteName } = this.props
-
-    
+    const { siteLanguage } = this.props
     
     return (
       <div>
         <Head>
-          <title>Treasure Wine Estates - POC</title>
+          <title>Treasure Wine Estates - {siteName}</title>
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous" />
         </Head>
         <div className='container'>
@@ -161,7 +164,7 @@ export default class Dyn extends React.Component {
                 }
 
                 return <div key={`key-${index}`}>
-                  {this.mapTypeToComponent(item['@type'], componentProps, image)}
+                  {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage)}
                 </div>
             })}
           </Layout>
