@@ -16,7 +16,7 @@ export default class Dyn extends React.Component {
     console.log('Page requested with... page=' + query.page)
 
     // test header
-    console.log('Request header... ' + request.headers);
+    console.log('Request header... ' + window.location.hostname);
 
     // Set the site language with a default of English
     var siteLanguage = query.lang != null ? query.lang : 'en-AU';
