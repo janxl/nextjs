@@ -12,6 +12,8 @@ export default class Dyn extends React.Component {
   static async getInitialProps({ query }) {
     
     console.log('Page requested with... id=' + query.id)
+    console.log('Page requested with... site=' + query.site)
+    console.log('Page requested with... page=' + query.page)
 
     // Get Site Id / Name
     var siteName = 'mysite'
