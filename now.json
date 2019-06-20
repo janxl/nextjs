@@ -5,8 +5,9 @@
         {"src":"package.json","use":"@now/next"}
     ],
     "routes":[
-        {"src":"/p/(?<id>[^/]+)$","dest":"/index?id=$id"},
+        {"src":"/i/(?<id>[^/]+)$","dest":"/index?id=$id"},
         {"src":"/m/(?<id>[^/]+)$","dest":"/index?site=$id"},
+        {"src":"/p/(?<id>[^/]+)$","dest":"/index?page=$id"},
         {"src":"/(?<id>[^/]+)$","dest":"/index?page=$id"}
     ]
 }
