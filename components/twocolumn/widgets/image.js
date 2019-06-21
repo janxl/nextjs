@@ -1,8 +1,3 @@
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-`
-
 export default (props) => {
   const { imageId, componentList, siteLanguage } = props
 
@@ -14,8 +9,8 @@ export default (props) => {
   const imageUrl = `https://${defaultHost}/i/${endpoint}/${name}`
   
   return (
-    <Wrapper imageUrl={imageUrl}>
+    <div style={{backgroundImage: `url(${imageUrl})`}}>
       
-    </Wrapper>
+    </div>
   )
 }
