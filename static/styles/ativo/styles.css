@@ -1,0 +1,28 @@
+.c-banner {
+  height: calc(100vh - 137px);
+  width: 100%;
+  background-size: cover;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url('https://i1.adis.ws/i/twe/ativoherobackground')
+}
+
+.c-banner__heading {
+  font-size: 1.5em;
+  text-align: center;
+  font-family: "Helvetica Neue";
+}
+
+.c-banner__sub-heading {
+  font-size: 1.1em;
+  text-align: center;
+  font-family: "Helvetica Neue";
+}
+
+.c-richtext {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}

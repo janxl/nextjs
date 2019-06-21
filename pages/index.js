@@ -5,7 +5,7 @@ import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 import DynaHeader from '../components/dynamicheader.js'
-import Link from "next/link";
+import Link from "next/link"
 import Head from 'next/head'
 
 export default class Dyn extends React.Component {
@@ -140,21 +140,21 @@ export default class Dyn extends React.Component {
   }
 
   render() {
-    const { data } = this.props
-    const { dataMenu } = this.props
+    const { data, dataMenu, siteLanguage, siteName } = this.props
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    const { siteName } = this.props
-    const { siteLanguage } = this.props
+
+    console.log('PROPSSSS', this.props)
     
     return (
       <div>
         <Head>
           <title>Treasure Wine Estates - {siteName}</title>
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous" />
+          <link rel="stylesheet" href={`../static/styles/${siteName}/styles.css`} crossOrigin="anonymous" />
         </Head>
-        <div className='container'>
+        <div className='c-site-wrapper'>
           <nav className='nav'>
             <DynaHeader>
               {
