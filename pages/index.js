@@ -6,21 +6,15 @@ import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
 import Head from 'next/head'
+import App from 'next/app'
+import TwoColumn from '../components/twocolumn/layout.js'
 
 export default class Dyn extends React.Component {
   
   static async getInitialProps({ pathname, query, req }) {
-
-    if (req != null)
-    {
-      console.log('host... ', req.host)
-      console.log('hostname... ', req.hostname)
-      console.log('hostName... ', req.hostName)
-    }
-    
-    console.log('Page requested with... id=' + query.id)
-    console.log('Page requested with... site=' + query.site)
-    console.log('Page requested with... page=' + query.page)
+    // console.log('Page requested with... id=' + query.id)
+    // console.log('Page requested with... site=' + query.site)
+    // console.log('Page requested with... page=' + query.page)
 
     // Set the site language with a default of English
     var siteLanguage = query.lang != null ? query.lang : 'en-AU';
@@ -69,7 +63,7 @@ export default class Dyn extends React.Component {
     return { data, dataMenu, siteName, siteLanguage, pathname }
   }  
 
-  mapTypeToComponent = (typeName, componentProps, image, siteLanguage) => {
+  mapTypeToComponent = (typeName, componentProps, image, siteLanguage, componentList) => {
     componentProps.siteLanguage = siteLanguage
     switch(typeName) {
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
@@ -78,6 +72,8 @@ export default class Dyn extends React.Component {
         return  <SimpleText {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json':
+        return <TwoColumn {...componentProps} componentList={componentList} siteLanguage={siteLanguage} />
     }
   }
 
@@ -169,7 +165,7 @@ export default class Dyn extends React.Component {
                 }
 
                 return <div key={`key-${index}`}>
-                  {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage)}
+                  {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
                 </div>
             })}
           </Layout>
