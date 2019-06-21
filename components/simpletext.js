@@ -11,11 +11,12 @@ const Text = styled.p`
 `
 
 export default (props) => {
-  const { paragraph } = props
+  const { paragraph, intro } = props
 
   return (
     <Wrapper>
-      { paragraph.map((item, index) => <Text key={`key-${index}`}>{item}</Text>) }
+      { <Text>{intro.values.find((itemText) => itemText['locale'] === props.siteLanguage).value}</Text> }
+      { paragraph.map((item, index) => <Text key={`key-${index}`}>{item.values.find((itemText) => itemText['locale'] === props.siteLanguage).value}</Text>) }
     </Wrapper>
   )
 }
