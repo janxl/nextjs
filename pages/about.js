@@ -1,6 +1,4 @@
 import Layout from '../components/mylayout.js'
-import styled from 'styled-components'
-import GetCss from '../components/styleregistry.js'
 
 export default function About({id}) {
   console.log(id)
