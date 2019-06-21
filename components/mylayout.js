@@ -1,4 +1,3 @@
-import Header from './header'
 // import DynaHeader from '../components/dynamicheader.js'
 
 const layoutStyle = {
@@ -9,8 +8,6 @@ const layoutStyle = {
 
 const Layout = props => (
   <div>
-    {/* <Header /> */}
-    {/* <DynaHeader json="My dynamic header" /> */}
     {props.children}
   </div>
 )

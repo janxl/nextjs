@@ -74,7 +74,7 @@ export default class Dyn extends React.Component {
     switch(typeName) {
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
-      case 'http://twe-poc.way.com/simpletextblock.json':
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json':
         return  <SimpleText {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
