@@ -131,7 +131,7 @@ export default class Dyn extends React.Component {
           var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
   
           return <Link prefetch href={customRoute} key={`key-${index}`}>
-            <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel.values[0].value}</a>
+            <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
       )}</DynaHeader>
