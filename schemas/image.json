@@ -1,0 +1,33 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"id": "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/image.json",
+
+	"title": "Title",
+	"description": "Description",
+
+	"allOf": [
+		{
+			"$ref": "http://bigcontent.io/cms/schema/v1/core#/definitions/content"
+		}
+	],
+	
+	"type": "object",
+	"properties": {
+		"image":{
+			"title": "Image",
+			"description": "Image to display",
+			"allOf": [
+				{ "$ref": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link" }
+			]
+		},
+		"alt": {
+			"title": "alt",
+			"description": "Alt text for image",
+			"type": "string",
+			"minLength": 0,
+			"maxLength": 10
+		}
+		
+	},
+	"propertyOrder": []
+}
