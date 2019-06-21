@@ -4,13 +4,12 @@ import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
-import DynaHeader from '../components/dynamicheader.js'
 import Link from "next/link"
 import Head from 'next/head'
 
 export default class Dyn extends React.Component {
   
-  static async getInitialProps({ query, req }) {
+  static async getInitialProps({ pathname, query, req }) {
 
     if (req != null)
     {
@@ -67,8 +66,8 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, siteName, siteLanguage }
-  }
+    return { data, dataMenu, siteName, siteLanguage, pathname }
+  }  
 
   mapTypeToComponent = (typeName, componentProps, image, siteLanguage) => {
     componentProps.siteLanguage = siteLanguage
@@ -115,13 +114,11 @@ export default class Dyn extends React.Component {
   }
 
   getMenu(menuComponentList, siteName){
-    const linkStyle = {
-      marginRight: 15
-    };
+    const { url } = this.props
 
     if (menuComponentList[0].slugs != null ){
 
-      return <DynaHeader>
+      return <React.Fragment>
       {
         menuComponentList[0].slugs.map((item, index) => {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
@@ -131,10 +128,10 @@ export default class Dyn extends React.Component {
           var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
   
           return <Link prefetch href={customRoute} key={`key-${index}`}>
-            <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
+            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
-      )}</DynaHeader>
+      )}</React.Fragment>
 
     }
   }
@@ -156,11 +153,11 @@ export default class Dyn extends React.Component {
         </Head>
         <div className='c-site-wrapper'>
           <nav className='nav'>
-            <DynaHeader>
+            <div className="c-nav">
               {
                 this.getMenu(menuComponentList, siteName)
               }
-            </DynaHeader>
+            </div>
           </nav>
           <Layout>
             { componentList[0].slotContent.map((item, index) => {
