@@ -1,10 +1,7 @@
-import Layout from '../components/mylayout.js'
 import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 
 const Wrapper = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
 `
 
 const TextField = styled.p`
@@ -20,8 +17,8 @@ export default (props) => {
   console.log('rich text props', props)
 
   return (
-    <Wrapper>
+    <div className="container c-richtext">
       <ReactMarkdown source={body.values.find((item) => item['locale'] === props.siteLanguage).value} />
-    </Wrapper>
+    </div>
   )
 }

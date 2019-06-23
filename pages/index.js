@@ -4,24 +4,17 @@ import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
-import DynaHeader from '../components/dynamicheader.js'
-import Link from "next/link";
+import Link from "next/link"
 import Head from 'next/head'
+import App from 'next/app'
+import TwoColumn from '../components/twocolumn/layout.js'
 
 export default class Dyn extends React.Component {
   
-  static async getInitialProps({ query, req }) {
-
-    if (req != null)
-    {
-      console.log('host... ', req.host)
-      console.log('hostname... ', req.hostname)
-      console.log('hostName... ', req.hostName)
-    }
-    
-    console.log('Page requested with... id=' + query.id)
-    console.log('Page requested with... site=' + query.site)
-    console.log('Page requested with... page=' + query.page)
+  static async getInitialProps({ pathname, query, req }) {
+    // console.log('Page requested with... id=' + query.id)
+    // console.log('Page requested with... site=' + query.site)
+    // console.log('Page requested with... page=' + query.page)
 
     // Set the site language with a default of English
     var siteLanguage = query.lang != null ? query.lang : 'en-AU';
@@ -67,18 +60,20 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, siteName, siteLanguage }
-  }
+    return { data, dataMenu, siteName, siteLanguage, pathname }
+  }  
 
-  mapTypeToComponent = (typeName, componentProps, image, siteLanguage) => {
+  mapTypeToComponent = (typeName, componentProps, image, siteLanguage, componentList) => {
     componentProps.siteLanguage = siteLanguage
     switch(typeName) {
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
-      case 'http://twe-poc.way.com/simpletextblock.json':
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json':
         return  <SimpleText {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json':
+        return <TwoColumn {...componentProps} componentList={componentList} siteLanguage={siteLanguage} />
     }
   }
 
@@ -115,13 +110,11 @@ export default class Dyn extends React.Component {
   }
 
   getMenu(menuComponentList, siteName){
-    const linkStyle = {
-      marginRight: 15
-    };
+    const { url } = this.props
 
     if (menuComponentList[0].slugs != null ){
 
-      return <DynaHeader>
+      return <React.Fragment>
       {
         menuComponentList[0].slugs.map((item, index) => {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
@@ -131,36 +124,36 @@ export default class Dyn extends React.Component {
           var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
   
           return <Link prefetch href={customRoute} key={`key-${index}`}>
-            <a className='nav-item' href={customRoute} style={linkStyle}>{componentProps.navLabel.values[0].value}</a>
+            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
-      )}</DynaHeader>
+      )}</React.Fragment>
 
     }
   }
 
   render() {
-    const { data } = this.props
-    const { dataMenu } = this.props
+    const { data, dataMenu, siteLanguage, siteName } = this.props
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    const { siteName } = this.props
-    const { siteLanguage } = this.props
+
+    console.log('PROPSSSS', this.props)
     
     return (
       <div>
         <Head>
           <title>Treasure Wine Estates - {siteName}</title>
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous" />
+          <link rel="stylesheet" href={`../static/styles/${siteName}/styles.css`} crossOrigin="anonymous" />
         </Head>
-        <div className='container'>
+        <div className='c-site-wrapper'>
           <nav className='nav'>
-            <DynaHeader>
+            <div className="c-nav">
               {
                 this.getMenu(menuComponentList, siteName)
               }
-            </DynaHeader>
+            </div>
           </nav>
           <Layout>
             { componentList[0].slotContent.map((item, index) => {
@@ -172,7 +165,7 @@ export default class Dyn extends React.Component {
                 }
 
                 return <div key={`key-${index}`}>
-                  {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage)}
+                  {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
                 </div>
             })}
           </Layout>
