@@ -15,7 +15,7 @@ export default class Dyn extends React.Component {
     // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    console.log('current pathname... ' + pathname)
+    console.log('current pathname... ' + query.page)
     let page = pathname;
 
     // Get Site Id / Name
@@ -36,7 +36,7 @@ export default class Dyn extends React.Component {
     }
 
     // Create a route for the initial render of the page
-    if (query.id == null || query.id == '' || query.id == '/')
+    if (pathname == null || pathname == '' || pathname == '/')
       query = {id: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
@@ -48,7 +48,7 @@ export default class Dyn extends React.Component {
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
-        siteId = this.getCustomRoute(json, query.id)
+        siteId = this.getCustomRoute(json, pathname)
         dataMenu = json
         console.log('SiteId... ' + siteId)
       })
