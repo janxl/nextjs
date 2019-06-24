@@ -15,7 +15,7 @@ export default class Dyn extends React.Component {
     // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    console.log('pathname... ' + pathname)
+    console.log('current pathname... ' + pathname)
     let page = pathname;
 
     // Get Site Id / Name
