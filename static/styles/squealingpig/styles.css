@@ -46,6 +46,10 @@
   position: relative;
 }
 
+.c-nav__item.active {
+  color: #c99212;
+}
+
 .c-nav__item:hover {
   text-decoration: none;
   color: #707271;
@@ -69,5 +73,14 @@
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+
+.c-simple-text {
+  margin-top: 40px;
+}
+
+body {
+  margin-bottom: 40px;
 }
 

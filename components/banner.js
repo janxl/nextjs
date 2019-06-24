@@ -5,8 +5,6 @@ export default (props) => {
   const { headline, strapline, image } = props
   const imageUrl = `https://${image.defaultHost}/i/${image.endpoint}/${image.name}`
 
-  console.log('imageurl', imageUrl)
-
   return (
     <div className="c-banner" style={{'backgroundImage': `url(${imageUrl})`}}>
       <h1 className="c-banner__heading">{headline.values.find((item) => item['locale'] === props.siteLanguage).value}</h1>
