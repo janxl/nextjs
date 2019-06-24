@@ -17,16 +17,18 @@ let getWidget = (component, siteLanguage, componentList) => {
 }
 
 export default (props) => {
-  const {componentList, rightColumn, leftColumn, siteLanguage} = props
+  const { componentList, rightColumn, leftColumn, siteLanguage } = props
 
   return (
-    <div className="c-col-2">
-      <div className="c-col-left">
-        {getComponentProps(rightColumn[0]['@id'], componentList, siteLanguage)}
+    <div className="c-two-col">
+      <div className="container row c-col-wrapper">
+        <div className="col-md-6 c-two-col__container">
+          {getComponentProps(rightColumn[0]['@id'], componentList, siteLanguage)}
+        </div>
+        <div className="col-md-6 c-two-col__container-image">
+          {getComponentProps(leftColumn[0]['@id'], componentList, siteLanguage)}
+        </div>  
       </div>
-      <div className="c-col-right">
-        {getComponentProps(leftColumn[0]['@id'], componentList, siteLanguage)}
-      </div>  
     </div>
   )
 }

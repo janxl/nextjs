@@ -1,5 +1,6 @@
 import Layout from '../components/mylayout.js'
 import Banner from '../components/banner.js'
+import Image from '../components/image.js'
 import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import dynamic from 'next/dynamic'
@@ -67,6 +68,8 @@ export default class Dyn extends React.Component {
     componentProps.siteLanguage = siteLanguage
 
     switch(typeName) {
+      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/image.json':
+        return <Image {...componentProps} image={image} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json':
@@ -96,6 +99,7 @@ export default class Dyn extends React.Component {
   }
 
   getComponentProps = (componentId, componentList) => {
+    console.log('componenttttttt', componentList.find((item) => item['@id'] === componentId))
     return componentList.find((item) => item['@id'] === componentId)
   }
 
@@ -161,9 +165,12 @@ export default class Dyn extends React.Component {
                 let image = null
                 const componentProps = this.getComponentProps(item['@id'], componentList)
 
-                if (componentProps.background) {
-                  image = imageList.find((imageItem) => imageItem['@id'] === componentProps.background['@id'])
+                if (componentProps.background || componentProps.image) {
+                  image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
                 }
+
+                console.log('image list', imageList)
+                console.log('imaheeee', image)
 
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}

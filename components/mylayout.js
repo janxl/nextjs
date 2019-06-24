@@ -5,7 +5,7 @@ const layoutStyle = {
 }
 
 const Layout = props => (
-  <div>
+  <div className="u-component-wrapper">
     {props.children}
   </div>
 )
