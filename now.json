@@ -5,9 +5,9 @@
         {"src":"package.json","use":"@now/next"}
     ],
     "routes":[
-        {"src":"/_next/.*","continue":true},
-        {"src":"/static/.*","continue":true},
-        {"src":"/favicon.ico","continue":true},
+        {"src":"/_next/(.*)$","dst":"/_next/$1"},
+        {"src":"/static/(.*)$","dst":"/static/$1"},
+        {"src":"/favicon.ico","dst":"/favicon.ico"},
         {"src":"/(.*)$","dest":"/index?page=$1"}
     ]
 }
