@@ -6,7 +6,7 @@
     ],
     "routes":[
         {"src":"/_next/.*","continue":true},
-        {"src":"/styles/.*","continue":true},
+        {"src":"/static/.*","continue":true},
         {"src":"/favicon.ico","continue":true},
         {"src":"/(.*)$","dest":"/index?page=$1"}
     ]
