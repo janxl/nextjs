@@ -81,6 +81,9 @@ export default class Dyn extends React.Component {
 
   // This method gets custom routes by looking up the nav path and finding the id
   static getCustomRoute = (data, path) => {
+    if (path == null || path == '')
+      path = '/'
+      
     let componentList = data['@graph']
     const componentProps = componentList.find((item) => item['slug'] === path)
     
@@ -122,11 +125,11 @@ export default class Dyn extends React.Component {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
-          let customRoute = componentProps.slug // `/page=${componentProps.slug}`
+          let customRoute = componentProps.slug
           
           console.log('Link Route...' + customRoute)
           console.log('PageId...' + pageId)
-          console.log('Url As Path' + url.asPath)
+          console.log('Url As Path... ' + url.asPath)
 
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
