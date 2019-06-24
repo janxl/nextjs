@@ -124,6 +124,7 @@ export default class Dyn extends React.Component {
           let pageId = this.getGuidFromId(componentProps.page['@id'])
           let customRoute = `/index?site=${siteName}&page=${componentProps.slug}`
           
+          console.log('Link Route...' + customRoute)
           console.log('PageId...' + pageId)
 
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
