@@ -1,9 +1,5 @@
-import styled from 'styled-components'
 import Text from './widgets/text.js'
 import Image from './widgets/image.js'
-
-const Wrapper = styled.div`
-`
 
 let getComponentProps = (componentId, componentList, siteLanguage) => {
   return getWidget(componentList.find((item) => item['@id'] === componentId), siteLanguage, componentList)
@@ -24,13 +20,13 @@ export default (props) => {
   const {componentList, rightColumn, leftColumn, siteLanguage} = props
 
   return (
-    <Wrapper className="c-col-2">
-      <Wrapper className="c-col-left">
+    <div className="c-col-2">
+      <div className="c-col-left">
         {getComponentProps(rightColumn[0]['@id'], componentList, siteLanguage)}
-      </Wrapper>
-      <Wrapper className="c-col-right">
+      </div>
+      <div className="c-col-right">
         {getComponentProps(leftColumn[0]['@id'], componentList, siteLanguage)}
-      </Wrapper>  
-    </Wrapper>
+      </div>  
+    </div>
   )
 }
