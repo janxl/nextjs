@@ -17,10 +17,11 @@ export default class Dyn extends React.Component {
     // Set the site language with a default of English
     let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    console.log('current pathname... ' + query.page)
-
+    
     if (query.page != '/')
       page = '/' + query.page;
+
+    console.log('current page... ' + page)
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
