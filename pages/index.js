@@ -13,18 +13,8 @@ export default class Dyn extends React.Component {
   
   static async getInitialProps({ pathname, query, req }) {
     // http://localhost:3000/squealingpig/en-au/page/
-
     // Set the site language with a default of English
     var siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    switch (query.lang) {
-      case 'en-au': 
-      siteLanguage = 'en-AU'
-        break;
-    
-      default:
-      siteLanguage = 'zh-CN'
-        break;
-    }
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
