@@ -167,7 +167,7 @@ export default class Dyn extends React.Component {
             </div>
           </nav>
           <Layout>
-            { componentList[0].slotContent.map((item, index) => {
+            { componentList[0] && componentList[0].slotContent ? componentList[0].slotContent.map((item, index) => {
                 let image = null
                 const componentProps = this.getComponentProps(item['@id'], componentList)
 
@@ -181,7 +181,7 @@ export default class Dyn extends React.Component {
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
                 </div>
-            })}
+            }) : null}
           </Layout>
         </div>
       </div>
