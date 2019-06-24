@@ -1,8 +1,4 @@
-import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
-
-const Wrapper = styled.div`
-`
 
 export default (props) => {
   const { body } = props

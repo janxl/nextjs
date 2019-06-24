@@ -80,6 +80,11 @@
   margin-top: 40px;
 }
 
+.c-simple-text__paragraph {
+  font-size: 1em;
+  color: #333333;
+}
+
 body {
   margin-bottom: 40px;
 }

@@ -1,6 +1,3 @@
-
-import styled from 'styled-components'
-
 export default (props) => {
   const { headline, strapline, image } = props
   const imageUrl = `https://${image.defaultHost}/i/${image.endpoint}/${image.name}`
