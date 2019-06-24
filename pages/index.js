@@ -122,7 +122,7 @@ export default class Dyn extends React.Component {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
-          let navUrl = `/index?site=${siteName}&id=${pageId}`
+          let navUrl = `/index?site=${siteName}&page=${pageId}`
           let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
           
           console.log('PageId...' + pageId)
