@@ -14,7 +14,9 @@ export default class Dyn extends React.Component {
   static async getInitialProps({ pathname, query, req }) {
     // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
-    var siteLanguage = query.lang != null ? query.lang : 'en-AU';
+    let siteLanguage = query.lang != null ? query.lang : 'en-AU';
+    console.log('pathname... ' + pathname)
+    let page = pathname;
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
@@ -26,8 +28,10 @@ export default class Dyn extends React.Component {
         break;
     
       default:
-        siteName = 'ativo'
-        urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
+        //siteName = 'ativo'
+        //urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
+        siteName = 'squealingpig'
+        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
 
@@ -169,7 +173,6 @@ export default class Dyn extends React.Component {
             })}
           </Layout>
         </div>
-        
       </div>
     )
   }
