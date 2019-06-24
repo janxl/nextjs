@@ -5,11 +5,11 @@
         {"src":"package.json","use":"@now/next"}
     ],
     "routes":[
+        {"src":"/squealingpig","dest":"/index?site=squealingpig" },
+        {"src":"/ativo", "dest":"/index?site=ativo" },
         {"src":"/favicon.ico","dest":"/favicon.ico"},
         {"src":"/_next/(.*)$","dest":"/_next/$1"},
         {"src":"/static/(.*)$","dest":"/static/$1"},
-        {"src":"/squealingpig","dest":"/index?page=squealingpig" },
-        {"src":"/ativo", "dest":"/index?page=ativo" },
         {"src":"/(.*)$","dest":"/index?page=$1"}
     ]
 }

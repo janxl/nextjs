@@ -14,7 +14,7 @@ export default class Dyn extends React.Component {
   static async getInitialProps({ pathname, query, req }) {
     // http://localhost:3000/squealingpig/en-au/page/
 
-    console.log('Page requested with... query=' + query.site)
+    // console.log('Page requested with... id=' + query.id)
     // console.log('Page requested with... site=' + query.site)
     // console.log('Page requested with... page=' + query.page)
 
