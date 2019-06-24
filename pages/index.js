@@ -13,12 +13,11 @@ import TwoColumn from '../components/twocolumn/layout.js'
 export default class Dyn extends React.Component {
   
   static async getInitialProps({ pathname, query, req }) {
-    // console.log('Page requested with... id=' + query.id)
-    // console.log('Page requested with... site=' + query.site)
-    // console.log('Page requested with... page=' + query.page)
-
+    // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
-    var siteLanguage = query.lang != null ? query.lang : 'en-AU';
+    let siteLanguage = query.lang != null ? query.lang : 'en-AU';
+    console.log('current pathname... ' + query.page)
+    let page = '/' + query.page;
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
@@ -30,14 +29,16 @@ export default class Dyn extends React.Component {
         break;
     
       default:
-        siteName = 'ativo'
-        urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
+        //siteName = 'ativo'
+        //urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
+        siteName = 'squealingpig'
+        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
 
     // Create a route for the initial render of the page
-    if (query.id == null || query.id == '' || query.id == '/')
-      query = {id: '/'}
+    // if (page == null || page == '' || page == '/')
+    //   query = {page: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
@@ -48,7 +49,7 @@ export default class Dyn extends React.Component {
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
-        siteId = this.getCustomRoute(json, query.id)
+        siteId = this.getCustomRoute(json, page)
         dataMenu = json
         console.log('SiteId... ' + siteId)
       })
@@ -61,7 +62,7 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, siteName, siteLanguage, pathname }
+    return { data, dataMenu, siteName, siteLanguage, page }
   }  
 
   mapTypeToComponent = (typeName, componentProps, image, siteLanguage, componentList) => {
@@ -83,6 +84,9 @@ export default class Dyn extends React.Component {
 
   // This method gets custom routes by looking up the nav path and finding the id
   static getCustomRoute = (data, path) => {
+    if (path == null || path == '')
+      path = '/'
+      
     let componentList = data['@graph']
     const componentProps = componentList.find((item) => item['slug'] === path)
     
@@ -125,15 +129,17 @@ export default class Dyn extends React.Component {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
-          let navUrl = `/index?site=${siteName}&id=${pageId}`
-          let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
-  
-          return <Link prefetch href={customRoute} key={`key-${index}`}>
-            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
+          let customRoute = componentProps.slug
+          
+          console.log('Link Route...' + customRoute)
+          console.log('PageId...' + pageId)
+          console.log('Url As Path... ' + url.asPath)
+
+          return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
+            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
       )}</React.Fragment>
-
     }
   }
 
@@ -178,7 +184,6 @@ export default class Dyn extends React.Component {
             })}
           </Layout>
         </div>
-        
       </div>
     )
   }

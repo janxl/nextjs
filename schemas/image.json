@@ -26,8 +26,14 @@
 			"type": "string",
 			"minLength": 0,
 			"maxLength": 100
+        },
+        "cssClass": {
+			"title": "Custom CSS Class",
+			"description": "Add a custom css class for styling",
+			"type": "string",
+			"minLength": 0,
+			"maxLength": 50
 		}
-		
 	},
-	"propertyOrder": []
+	"propertyOrder": ["image","alt","cssClass"]
 }

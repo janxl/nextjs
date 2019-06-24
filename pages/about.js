@@ -1,14 +1,10 @@
 import Layout from '../components/mylayout.js'
 
-export default function About({id}) {
-  console.log(id)
-  var styles = GetCss('6aee88e2-0358-429a-b721-82dd6854c4a1')
-  
+export default function About() {
   return (
-    <Layout>
-      {styles}
+    <div>
       <h1>Squelling Pig</h1>
       <p>This is the about page</p>
-    </Layout>
+    </div>
   )
 }
