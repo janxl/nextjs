@@ -18,6 +18,8 @@ export default class Dyn extends React.Component {
     // Set the site language with a default of English
     let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
+
+    console.log("language=" + siteLanguage)
     
     if (query.page != '/')
       page = '/' + query.page;
