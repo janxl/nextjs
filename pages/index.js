@@ -25,8 +25,6 @@ export default class Dyn extends React.Component {
     if (page == '/undefined')
       page = '/'
 
-    console.log('current page... ' + page)
-
     // Get Site Id / Name
     var siteName = 'squealingpig'
     var urlId = ''
@@ -43,17 +41,6 @@ export default class Dyn extends React.Component {
         urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
-
-
-    const handleRouteChange = url => {
-      console.log('App is changing to: ', url)
-    }
-    
-    Router.events.on('routeChangeStart', handleRouteChange)
-    
-    // Create a route for the initial render of the page
-    // if (page == null || page == '' || page == '/')
-    //   query = {page: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
@@ -118,7 +105,6 @@ export default class Dyn extends React.Component {
   }
 
   getComponentProps = (componentId, componentList) => {
-    console.log('componenttttttt', componentList.find((item) => item['@id'] === componentId))
     return componentList.find((item) => item['@id'] === componentId)
   }
 
@@ -145,10 +131,6 @@ export default class Dyn extends React.Component {
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
           let customRoute = componentProps.slug
-          
-          console.log('Link Route...' + customRoute)
-          console.log('PageId...' + pageId)
-          console.log('Url As Path... ' + url.asPath)
 
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
@@ -163,8 +145,6 @@ export default class Dyn extends React.Component {
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-
-    console.log('PROPSSSS', this.props)
     
     return (
       <div>
@@ -189,9 +169,6 @@ export default class Dyn extends React.Component {
                 if (componentProps.background || componentProps.image) {
                   image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
                 }
-
-                console.log('image list', imageList)
-                console.log('imaheeee', image)
 
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
