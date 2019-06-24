@@ -37,7 +37,7 @@ export default class Dyn extends React.Component {
 
     // Create a route for the initial render of the page
     if (page == null || page == '' || page == '/')
-      query = {id: '/'}
+      query = {page: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
