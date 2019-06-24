@@ -14,9 +14,12 @@ export default class Dyn extends React.Component {
   static async getInitialProps({ pathname, query, req }) {
     // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
+    let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     console.log('current pathname... ' + query.page)
-    let page = '/' + query.page;
+
+    if (query.page != '/')
+      let page = '/' + query.page;
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
@@ -83,7 +86,7 @@ export default class Dyn extends React.Component {
   static getCustomRoute = (data, path) => {
     if (path == null || path == '')
       path = '/'
-      
+
     let componentList = data['@graph']
     const componentProps = componentList.find((item) => item['slug'] === path)
     
