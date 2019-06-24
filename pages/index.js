@@ -9,6 +9,7 @@ import Link from "next/link"
 import Head from 'next/head'
 import App from 'next/app'
 import TwoColumn from '../components/twocolumn/layout.js'
+import Router from 'next/router'
 
 export default class Dyn extends React.Component {
   
@@ -43,6 +44,13 @@ export default class Dyn extends React.Component {
         break;
     }
 
+
+    const handleRouteChange = url => {
+      console.log('App is changing to: ', url)
+    }
+    
+    Router.events.on('routeChangeStart', handleRouteChange)
+    
     // Create a route for the initial render of the page
     // if (page == null || page == '' || page == '/')
     //   query = {page: '/'}
