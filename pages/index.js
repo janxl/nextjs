@@ -19,7 +19,7 @@ export default class Dyn extends React.Component {
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     
     if (query.page != '/')
-      page = '/' + query.page;
+      page = '/';
 
     console.log('current page... ' + page)
 
