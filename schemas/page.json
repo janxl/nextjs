@@ -29,7 +29,8 @@
                                     "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json",
 									"https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json",
                                     "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json",
-                                    "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json"
+                                    "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json",
+                                    "https://raw.githubusercontent.com/janxl/nextjs/master/schemas/image.json"
                                 ]
                             }
                         }
