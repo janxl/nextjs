@@ -1,4 +1,3 @@
-import Layout from '../components/mylayout.js'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
