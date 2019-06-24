@@ -16,7 +16,7 @@ export default class Dyn extends React.Component {
     // Set the site language with a default of English
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     console.log('current pathname... ' + query.page)
-    let page = pathname;
+    let page = query.page;
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
@@ -36,7 +36,7 @@ export default class Dyn extends React.Component {
     }
 
     // Create a route for the initial render of the page
-    if (pathname == null || pathname == '' || pathname == '/')
+    if (page == null || page == '' || page == '/')
       query = {id: '/'}
 
     // Url for Root of CMS Tree, returning all nodes
@@ -48,7 +48,7 @@ export default class Dyn extends React.Component {
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
-        siteId = this.getCustomRoute(json, pathname)
+        siteId = this.getCustomRoute(json, page)
         dataMenu = json
         console.log('SiteId... ' + siteId)
       })
@@ -61,7 +61,7 @@ export default class Dyn extends React.Component {
     const res = await fetch(url)
     const data = await res.json()
 
-    return { data, dataMenu, siteName, siteLanguage, pathname }
+    return { data, dataMenu, siteName, siteLanguage, page }
   }  
 
   mapTypeToComponent = (typeName, componentProps, image, siteLanguage, componentList) => {
