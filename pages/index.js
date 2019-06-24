@@ -118,7 +118,6 @@ export default class Dyn extends React.Component {
   }
 
   getComponentProps = (componentId, componentList) => {
-    console.log('componenttttttt', componentList.find((item) => item['@id'] === componentId))
     return componentList.find((item) => item['@id'] === componentId)
   }
 
@@ -164,7 +163,6 @@ export default class Dyn extends React.Component {
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
 
-    console.log('PROPSSSS', this.props)
     
     return (
       <div>
@@ -190,8 +188,6 @@ export default class Dyn extends React.Component {
                   image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
                 }
 
-                console.log('image list', imageList)
-                console.log('imaheeee', image)
 
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
