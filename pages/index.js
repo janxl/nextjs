@@ -20,7 +20,7 @@ export default class Dyn extends React.Component {
     console.log('current pathname... ' + query.page)
 
     if (query.page != '/')
-      let page = '/' + query.page;
+      page = '/' + query.page;
 
     // Get Site Id / Name
     var siteName = 'squealingpig'
