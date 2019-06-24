@@ -71,6 +71,7 @@ export default class Dyn extends React.Component {
 
   mapTypeToComponent = (typeName, componentProps, image, siteLanguage) => {
     componentProps.siteLanguage = siteLanguage
+
     switch(typeName) {
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
@@ -83,13 +84,13 @@ export default class Dyn extends React.Component {
 
   // This method gets custom routes by looking up the nav path and finding the id
   static getCustomRoute = (data, path) => {
-    var componentList = data['@graph']
+    let componentList = data['@graph']
     const componentProps = componentList.find((item) => item['slug'] === path)
     
     if (componentProps != null){
-      var componentId = componentProps.page['@id']
+      let componentId = componentProps.page['@id']
       if (componentId.length >= 0){
-        var parts = componentId.split('/')
+        let parts = componentId.split('/')
         if (parts.length >= 0){
           return parts[parts.length - 1]
         }
@@ -104,7 +105,7 @@ export default class Dyn extends React.Component {
 
   getGuidFromId(componentId){
     if (componentId.length >= 0){
-      var parts = componentId.split('/')
+      let parts = componentId.split('/')
       
       if (parts.length >= 0){
         return parts[parts.length - 1]
@@ -123,9 +124,9 @@ export default class Dyn extends React.Component {
         menuComponentList[0].slugs.map((item, index) => {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
-          var pageId = this.getGuidFromId(componentProps.page['@id'])
-          var navUrl = `/index?site=${siteName}&id=${pageId}`
-          var customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
+          let pageId = this.getGuidFromId(componentProps.page['@id'])
+          let navUrl = `/index?site=${siteName}&id=${pageId}`
+          let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
   
           return <Link prefetch href={customRoute} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>

@@ -14,9 +14,9 @@ export default (props) => {
   const { paragraph, intro } = props
 
   return (
-    <Wrapper>
+    <div className="c-simple-text">
       { <Text>{intro.values.find((itemText) => itemText['locale'] === props.siteLanguage).value}</Text> }
       { paragraph.map((item, index) => <Text key={`key-${index}`}>{item.values.find((itemText) => itemText['locale'] === props.siteLanguage).value}</Text>) }
-    </Wrapper>
+    </div>
   )
 }

@@ -1,5 +1,3 @@
-// import DynaHeader from '../components/dynamicheader.js'
-
 const layoutStyle = {
   margin: 20,
   padding: 20,
