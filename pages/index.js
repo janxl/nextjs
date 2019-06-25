@@ -10,13 +10,25 @@ import TwoColumn from '../components/twocolumn/layout.js'
 
 export default class Dyn extends React.Component {
   
-  static async getInitialProps({ pathname, query, req }) {
-    // Set the site language with a default of English
-    let page = ''
+  static async getInitialProps({req, res, route, query}) {
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     let urlId = query.id != null ? query.id : '';
     let siteName = query.site != null ? query.site : '';
-    
+    let siteId = ''
+    let page = ''
+
+    if (req != null)
+    {
+      if (req.headers['x-forwarded-host'] == 'ativo.rhm.net.au'){
+        siteName = 'ativo'
+      } else if (req.headers['x-forwarded-host'] == 'squealingpig.rhm.net.au'){
+        siteName = 'squealingpig'
+      }
+      
+      console.log('siteName=>' + siteName)
+      console.log('host=>' + req.headers['x-forwarded-host'])
+    }
+
     if (query.page != '/')
       page = '/' + query.page;
 
@@ -24,7 +36,6 @@ export default class Dyn extends React.Component {
       page = '/'
 
     // Get Site Id / Name
-    var siteId = ''
     switch (siteName) {
       case 'ativo':
         siteName = 'ativo'
@@ -59,8 +70,8 @@ export default class Dyn extends React.Component {
     
     const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
-    const res = await fetch(url)
-    const data = await res.json()
+    const response = await fetch(url)
+    const data = await response.json()
 
     return { data, dataMenu, siteName, siteLanguage, page }
   }  
