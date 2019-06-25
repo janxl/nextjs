@@ -3,39 +3,19 @@ import Banner from '../components/banner.js'
 import Image from '../components/image.js'
 import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
-import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
 import Head from 'next/head'
-import App from 'next/app'
 import TwoColumn from '../components/twocolumn/layout.js'
-import Router from 'next/router'
 
 export default class Dyn extends React.Component {
   
   static async getInitialProps({ pathname, query, req }) {
-    // http://localhost:3000/squealingpig/en-au/page/
     // Set the site language with a default of English
     let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     let urlId = query.id != null ? query.id : '';
     let siteName = query.site != null ? query.site : '';
-
-    //let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    //console.log('This is the full url... ' + fullUrl)
-
-    // *** START >> Testing get full url ***
-    // if (req != null){
-    //   if (req.url != null) {
-    //     console.log("URL=" + '/' + req.url)
-    //   }
-    //   if (req.headers != null){
-    //     if (req.headers.host != null){
-    //       console.log("URL_HOST=" + req.headers.host)
-    //     }
-    //   }
-    // }
-    // *** END >> Testing get full url ***
     
     if (query.page != '/')
       page = '/' + query.page;
@@ -56,7 +36,6 @@ export default class Dyn extends React.Component {
         break;
     }
     
-  
     // Url for Root of CMS Tree, returning all nodes
     const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
@@ -68,7 +47,6 @@ export default class Dyn extends React.Component {
       .then(json => {
         slugId = this.getCustomRoute(json, page)
         dataMenu = json
-        console.log('SlugId... ' + slugId)
       })
     
     var pageId = ''
@@ -151,36 +129,13 @@ export default class Dyn extends React.Component {
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
           let navUrl = `/index?site=${siteName}&id=${pageId}`
-          let customRoute = navUrl //`/index?site=${siteName}&id=${componentProps['@id']}`
+          let customRoute = navUrl
           
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
       )}</React.Fragment>
-    }
-  }
-
-  getMenu2(menuComponentList, siteName){
-    const { url } = this.props
-
-    if (menuComponentList[0].slugs != null ){
-
-      return <React.Fragment>
-      {
-        menuComponentList[0].slugs.map((item, index) => {
-          const componentProps = this.getComponentProps(item['@id'], menuComponentList)
-          
-          let pageId = this.getGuidFromId(componentProps.page['@id'])
-          let navUrl = `/index?site=${siteName}&id=${pageId}`
-          let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
-  
-          return <Link prefetch href={customRoute} key={`key-${index}`}>
-            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
-          </Link>
-        }
-      )}</React.Fragment>
-
     }
   }
 
