@@ -105,6 +105,10 @@ h1, h2, .nav {
   font-family: "Bodoni MT", Didot, "Didot LT STD", "Times New Roman", serif;
 }
 
+h2 {
+  color: #c99111;
+}
+
 .u-component-wrapper {
   max-width: 1000px;
   margin: 0 auto;
