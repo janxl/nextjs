@@ -51,7 +51,7 @@ export default class Dyn extends React.Component {
         siteId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
         break;
       default:
-        siteName = 'squealing'
+        siteName = 'squealingpig'
         siteId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
