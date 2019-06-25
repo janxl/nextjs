@@ -46,19 +46,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f3ef;
   margin-top: 40px;
 }
 
 .c-two-col__heading {
   font-size: 2.8rem;
-}
-
-.c-two-col__container-image {
-  width: auto;
-  height: 415px;
-  background-size: contain;
-  background-image: url('https://www.ativospritz.com/-/media/Images/Ativo/Products/Bottle-white.ashx?modified=20180920004101&h=540&w=618&la=en&hash=0DACAE6097110AF9864527F3C98CF7420656241F')
 }
 
 .c-two-col__container {
@@ -77,6 +69,14 @@ body {
   justify-content: center;
   align-items: center;
   padding: 15px 0px 19px;
+}
+
+.c-two-col__background-image {
+  height: 415px;
+  background-image: url(https://i1.adis.ws/i/twe/Bottle_rose);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 h1, h2, h3 {
