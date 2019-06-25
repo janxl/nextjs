@@ -11,6 +11,7 @@ import TwoColumn from '../components/twocolumn/layout.js'
 export default class Dyn extends React.Component {
   
   static async getInitialProps({req, res, route, query}) {
+    // Setup env vars
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     let urlId = query.id != null ? query.id : '';
     let siteName = query.site != null ? query.site : '';
