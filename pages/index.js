@@ -150,13 +150,37 @@ export default class Dyn extends React.Component {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
           let pageId = this.getGuidFromId(componentProps.page['@id'])
-          let customRoute = componentProps.slug
-
+          let navUrl = `/index?site=${siteName}&id=${pageId}`
+          let customRoute = navUrl //`/index?site=${siteName}&id=${componentProps['@id']}`
+          
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
           </Link>
         }
       )}</React.Fragment>
+    }
+  }
+
+  getMenu2(menuComponentList, siteName){
+    const { url } = this.props
+
+    if (menuComponentList[0].slugs != null ){
+
+      return <React.Fragment>
+      {
+        menuComponentList[0].slugs.map((item, index) => {
+          const componentProps = this.getComponentProps(item['@id'], menuComponentList)
+          
+          let pageId = this.getGuidFromId(componentProps.page['@id'])
+          let navUrl = `/index?site=${siteName}&id=${pageId}`
+          let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
+  
+          return <Link prefetch href={customRoute} key={`key-${index}`}>
+            <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`} href={customRoute}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
+          </Link>
+        }
+      )}</React.Fragment>
+
     }
   }
 
