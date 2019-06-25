@@ -46,7 +46,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
 }
 
 .c-two-col__heading {
@@ -74,7 +73,7 @@ body {
 .c-two-col__background-image {
   height: 415px;
   background-image: url(https://i1.adis.ws/i/twe/Bottle_rose);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
