@@ -149,7 +149,9 @@ export default class Dyn extends React.Component {
         menuComponentList[0].slugs.map((item, index) => {
           const componentProps = this.getComponentProps(item['@id'], menuComponentList)
           
-          let customRoute = `/index?site=${siteName}&id=${componentProps.slug}`
+          let pageId = this.getGuidFromId(componentProps.page['@id'])
+          let navUrl = `/index?site=${siteName}&id=${pageId}`
+          let customRoute = navUrl //`/index?site=${siteName}&id=${componentProps['@id']}`
           
           return <Link prefetch href={customRoute} as={componentProps.slug} key={`key-${index}`}>
             <a className={`c-nav__item ${url.asPath === customRoute ? 'active' : ''}`}>{componentProps.navLabel != null ? componentProps.navLabel.values[0].value : ''}</a>
