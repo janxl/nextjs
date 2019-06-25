@@ -20,16 +20,16 @@ export default class Dyn extends React.Component {
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
 
     // *** START >> Testing get full url ***
-    if (req != null){
-      if (req.url != null) {
-        console.log("URL=" + '/' + req.url)
-      }
-      if (req.headers != null){
-        if (req.Headers.host != null){
-          console.log("URL_HOST=" + req.headers.host)
-        }
-      }
-    }
+    // if (req != null){
+    //   if (req.url != null) {
+    //     console.log("URL=" + '/' + req.url)
+    //   }
+    //   if (req.headers != null){
+    //     if (req.headers.host != null){
+    //       console.log("URL_HOST=" + req.headers.host)
+    //     }
+    //   }
+    // }
     // *** END >> Testing get full url ***
     
     if (query.page != '/')
