@@ -18,11 +18,19 @@ export default class Dyn extends React.Component {
     // Set the site language with a default of English
     let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    
-    //let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    //console.log('This is the full url... ' + fullUrl)
 
-    console.log("language=" + siteLanguage)
+    // *** START >> Testing get full url ***
+    if (req != null){
+      if (req.url != null) {
+        console.log("URL=" + '/' + req.url)
+      }
+      if (req.headers != null){
+        if (req.Headers.host != null){
+          console.log("URL_HOST=" + req.headers.host)
+        }
+      }
+    }
+    // *** END >> Testing get full url ***
     
     if (query.page != '/')
       page = '/' + query.page;
