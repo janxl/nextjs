@@ -109,3 +109,17 @@ h1, h2, .nav {
   max-width: 1000px;
   margin: 0 auto;
 }
+
+.c-two-col__background-image {
+  height: 415px;
+  width: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.c-col-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -6,8 +6,7 @@ export default (props) => {
   const imageUrl = `https://${defaultHost}/i/${endpoint}/${name}`
   
   return (
-    <div style={{backgroundImage: `url(${imageUrl})`}}>
-      
+    <div className="c-two-col__background-image" style={{backgroundImage: `url(${imageUrl})`}}>
     </div>
   )
 }
