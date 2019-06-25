@@ -18,7 +18,9 @@ export default class Dyn extends React.Component {
     // Set the site language with a default of English
     let page = ''
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
-    
+    let urlId = query.id != null ? query.id : '';
+    let siteName = query.site != null ? query.site : '';
+
     //let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     //console.log('This is the full url... ' + fullUrl)
 
@@ -31,40 +33,40 @@ export default class Dyn extends React.Component {
       page = '/'
 
     // Get Site Id / Name
-    var siteName = 'squealingpig'
-    var urlId = ''
-    switch (query.site) {
-      case 'squealingpig':
-        siteName = 'squealingpig'
-        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
+    var siteId = ''
+    switch (siteName) {
+      case 'ativo':
+        siteId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
         break;
-    
       default:
-        //siteName = 'ativo'
-        //urlId = '99757712-7a28-4ce5-94f3-82c2f936cbc6'
-        siteName = 'squealingpig'
-        urlId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
+        siteId = 'e904f0cd-7f15-4773-807a-f35f322b18e8'
         break;
     }
-
+    
+  
     // Url for Root of CMS Tree, returning all nodes
-    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${urlId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     // Get route from Data
-    var siteId = '';
+    var slugId = '';
     var dataMenu = ''
     await fetch(treeRootUrl)
       .then(response => response.json())
       .then(json => {
-        siteId = this.getCustomRoute(json, page)
+        slugId = this.getCustomRoute(json, page)
         dataMenu = json
-        console.log('SiteId... ' + siteId)
+        console.log('SlugId... ' + slugId)
       })
     
-    if (siteId == null || siteId == '')
-      siteId = urlId
-
-    const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    var pageId = ''
+    if(urlId!='')
+      pageId = urlId
+    else if(slugId!='')  
+      pageId = slugId
+    else 
+      pageId = siteId
+    
+    const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     const res = await fetch(url)
     const data = await res.json()
