@@ -3,13 +3,10 @@ import Banner from '../components/banner.js'
 import Image from '../components/image.js'
 import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
-import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
 import Head from 'next/head'
-import App from 'next/app'
 import TwoColumn from '../components/twocolumn/layout.js'
-import Router from 'next/router'
 
 export default class Dyn extends React.Component {
   
