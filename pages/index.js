@@ -69,7 +69,8 @@ export default class Dyn extends React.Component {
       pageId = siteId
     
     const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
-    
+    console.log('url=' + url)
+
     const response = await fetch(url)
     const data = await response.json()
 
@@ -150,12 +151,26 @@ export default class Dyn extends React.Component {
     }
   }
 
+  renderSingleComponent = (componentList, siteLanguage) => {
+    let image = null
+    const imageList = componentList.filter((item) => item.mediaType === 'image')
+    
+    let componentProps = this.getComponentProps(componentList[0]['@id'], componentList)
+    console.log('componentProps...' + componentProps)
+
+    if (componentProps.background || componentProps.image) {
+      image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
+    }
+
+    return this.mapTypeToComponent(componentProps['@type'], componentProps, image, siteLanguage, componentList)
+  }
+
   render() {
     const { data, dataMenu, siteLanguage, siteName } = this.props
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    
+
     return (
       <div>
         <Head>
@@ -183,7 +198,11 @@ export default class Dyn extends React.Component {
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
                 </div>
-            }) : null}
+              }) : 
+                
+              this.renderSingleComponent(componentList, siteLanguage)
+                
+            }
           </Layout>
         </div>
       </div>
