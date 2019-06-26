@@ -14,10 +14,14 @@ export default class Dyn extends React.Component {
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     let urlId = query.id != null ? query.id : '';
     let siteName = query.site != null ? query.site : '';
+    let liveSiteDomain = 'c1.adis.ws'
+    let siteDomain = ''
     let siteId = ''
     let page = ''
 
-    console.log('Query API...' + query.api)
+    // Determine if we use preview or live site, preview site is used mostly by 
+    // Amplience preview feature within CMS
+    siteDomain = query.api != null && query.api != '' ? query.api : liveSiteDomain
 
     // This block identifies the site Id to use when in production
     if (req != null)
@@ -48,7 +52,7 @@ export default class Dyn extends React.Component {
     }
     
     // Url for Root of CMS Tree, returning all nodes
-    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    const treeRootUrl = `https://${siteDomain}/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     // Get route from Data
     var slugId = '';
