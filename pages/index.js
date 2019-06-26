@@ -17,6 +17,9 @@ export default class Dyn extends React.Component {
     let siteId = ''
     let page = ''
 
+    console.log('Query API...' + query.api)
+
+    // This block identifies the site Id to use when in production
     if (req != null)
     {
       if (req.headers['x-forwarded-host'] == 'ativo.rhm.net.au'){
@@ -24,14 +27,11 @@ export default class Dyn extends React.Component {
       } else if (req.headers['x-forwarded-host'] == 'squealingpig.rhm.net.au'){
         siteName = 'squealingpig'
       }
-      
-      console.log('siteName=>' + siteName)
-      console.log('host=>' + req.headers['x-forwarded-host'])
     }
 
+    // Does handling of some screwy page params for internal routing
     if (query.page != '/')
       page = '/' + query.page;
-
     if (page == '/undefined')
       page = '/'
 
@@ -69,8 +69,6 @@ export default class Dyn extends React.Component {
       pageId = siteId
     
     const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
-    console.log('url=' + url)
-
     const response = await fetch(url)
     const data = await response.json()
 
@@ -154,9 +152,7 @@ export default class Dyn extends React.Component {
   renderSingleComponent = (componentList, siteLanguage) => {
     let image = null
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    
     let componentProps = this.getComponentProps(componentList[0]['@id'], componentList)
-    console.log('componentProps...' + componentProps)
 
     if (componentProps.background || componentProps.image) {
       image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
