@@ -1,7 +1,6 @@
 import Layout from '../components/mylayout.js'
 import Banner from '../components/banner.js'
 import Image from '../components/image.js'
-import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
@@ -87,8 +86,6 @@ export default class Dyn extends React.Component {
         return <Image {...componentProps} image={image} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
-      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json':
-        return  <SimpleText {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json':
