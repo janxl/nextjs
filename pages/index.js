@@ -72,7 +72,7 @@ export default class Dyn extends React.Component {
     else 
       pageId = siteId
     
-    const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    const url = `https://${siteDomain}/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     const response = await fetch(url)
     const data = await response.json()
 
