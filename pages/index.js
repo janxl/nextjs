@@ -1,7 +1,6 @@
 import Layout from '../components/mylayout.js'
 import Banner from '../components/banner.js'
 import Image from '../components/image.js'
-import SimpleText from '../components/simpletext.js'
 import RichTextField from '../components/richtextfield.js'
 import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
@@ -15,9 +14,16 @@ export default class Dyn extends React.Component {
     let siteLanguage = query.lang != null ? query.lang : 'en-AU';
     let urlId = query.id != null ? query.id : '';
     let siteName = query.site != null ? query.site : '';
+    let liveSiteDomain = 'c1.adis.ws'
+    let siteDomain = ''
     let siteId = ''
     let page = ''
 
+    // Determine if we use preview or live site, preview site is used mostly by 
+    // Amplience preview feature within CMS
+    siteDomain = query.api != null && query.api != '' ? query.api : liveSiteDomain
+
+    // This block identifies the site Id to use when in production
     if (req != null)
     {
       if (req.headers['x-forwarded-host'] == 'ativo.rhm.net.au'){
@@ -25,14 +31,11 @@ export default class Dyn extends React.Component {
       } else if (req.headers['x-forwarded-host'] == 'squealingpig.rhm.net.au'){
         siteName = 'squealingpig'
       }
-      
-      console.log('siteName=>' + siteName)
-      console.log('host=>' + req.headers['x-forwarded-host'])
     }
 
+    // Does handling of some screwy page params for internal routing
     if (query.page != '/')
       page = '/' + query.page;
-
     if (page == '/undefined')
       page = '/'
 
@@ -49,7 +52,7 @@ export default class Dyn extends React.Component {
     }
     
     // Url for Root of CMS Tree, returning all nodes
-    const treeRootUrl = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
+    const treeRootUrl = `https://${siteDomain}/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${siteId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     
     // Get route from Data
     var slugId = '';
@@ -69,8 +72,7 @@ export default class Dyn extends React.Component {
     else 
       pageId = siteId
     
-    const url = `https://c1.adis.ws/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
-    
+    const url = `https://${siteDomain}/cms/content/query?query=%7b%22sys.iri%22:%22http://content.cms.amplience.net/${pageId}%22%7d&scope=tree&store=twe&fullBodyObject=true`
     const response = await fetch(url)
     const data = await response.json()
 
@@ -85,8 +87,6 @@ export default class Dyn extends React.Component {
         return <Image {...componentProps} image={image} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/banner.json':
         return <Banner {...componentProps} image={image} />
-      case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/simpletextblock.json':
-        return  <SimpleText {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/richtextfield.json':
         return <RichTextField {...componentProps} />
       case 'https://raw.githubusercontent.com/janxl/nextjs/master/schemas/twocolumncontainer.json':
@@ -151,12 +151,24 @@ export default class Dyn extends React.Component {
     }
   }
 
+  renderSingleComponent = (componentList, siteLanguage) => {
+    let image = null
+    const imageList = componentList.filter((item) => item.mediaType === 'image')
+    let componentProps = this.getComponentProps(componentList[0]['@id'], componentList)
+
+    if (componentProps.background || componentProps.image) {
+      image = imageList.find((imageItem) => (componentProps.background && imageItem['@id'] === componentProps.background['@id']) || (componentProps.image && imageItem['@id'] === componentProps.image['@id']))
+    }
+
+    return this.mapTypeToComponent(componentProps['@type'], componentProps, image, siteLanguage, componentList)
+  }
+
   render() {
     const { data, dataMenu, siteLanguage, siteName } = this.props
     const componentList = data['@graph']
     const menuComponentList = dataMenu['@graph']
     const imageList = componentList.filter((item) => item.mediaType === 'image')
-    
+
     return (
       <div>
         <Head>
@@ -184,7 +196,11 @@ export default class Dyn extends React.Component {
                 return <div key={`key-${index}`}>
                   {this.mapTypeToComponent(item['@type'], componentProps, image, siteLanguage, componentList)}
                 </div>
-            }) : null}
+              }) : 
+                
+              this.renderSingleComponent(componentList, siteLanguage)
+                
+            }
           </Layout>
         </div>
       </div>
