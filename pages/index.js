@@ -79,6 +79,7 @@ export default class Dyn extends React.Component {
     return { data, dataMenu, siteName, siteLanguage, page }
   }  
 
+  // Added simple text comp
   mapTypeToComponent = (typeName, componentProps, image, siteLanguage, componentList) => {
     componentProps.siteLanguage = siteLanguage
 
